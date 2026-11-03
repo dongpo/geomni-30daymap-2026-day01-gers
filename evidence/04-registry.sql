@@ -1,0 +1,3 @@
+CREATE OR REPLACE TABLE registry AS SELECT * FROM read_parquet('s3://overturemaps-us-west-2/registry/*.parquet') WHERE id IN ('214bf395-7335-4d99-9f72-aa8ad3403164','8b964415-d832-4451-9f1a-8be4bb9601b5','1709e0cb-c2f9-4eab-8df1-c92b486c9255','316d3c22-c51e-4b32-a04c-0f11e070540a','50e06345-7a3b-435a-9aa5-68e94a6e4190','f4e28492-3c08-4504-8729-aec82048776b','aca7c916-b497-4d7c-8522-77b86e15a858','c09a44b0-bab8-487c-97d0-3a44b8ce1848','73c8b370-21b5-4e71-b92f-b0815427f1e1');
+COPY registry TO 'outputs/v2/evidence/gers-registry.parquet' (FORMAT PARQUET);
+COPY (SELECT id,version,first_seen,last_seen,last_changed,path FROM registry) TO 'outputs/v2/evidence/gers-registry.csv' (HEADER);
